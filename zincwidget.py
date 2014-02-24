@@ -191,11 +191,14 @@ class ZincWidget(QtOpenGL.QGLWidget):
 
         self._scene_viewer_notifier = self._scene_viewer.createSceneviewernotifier()
         self._scene_viewer_notifier.setCallback(self._zincSceneviewerEvent)
-        # initializeGL end
         
-        print "initializeGL"
-        # Notify the user that the graphics are ready to use.  
-        self.graphicsInitialized.emit()
+        # Notify the user that the graphics are ready to use.
+        # This must be called after initializeGL has exited so use a
+        # timer to create a callback that will be called from the
+        # event loop.
+        QtCore.QTimer.singleShot(0, self.graphicsInitialized.emit)
+
+        # initializeGL end
 
     def getLookAtParameters(self):
         '''
