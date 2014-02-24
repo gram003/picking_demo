@@ -38,16 +38,18 @@ class PickingDlg(QtGui.QWidget):
                 
     def setUp(self):
         
-#         node_coordinate_set = [[0.0, 0.0, 0.0], [3.0, 0.0, 0.0], [0.0, 4.0, 0.0], [3.0, 2.0, 0.0],
-#                                [0.0, 0.0, 2.0], [3.0, 0.0, 2.0], [0.0, 4.0, 2.0], [3.0, 2.0, 2.0]]
-#         self.create3DFiniteElement(node_coordinate_set)
+        node_coordinate_set = [[0.0, 0.0, 0.0], [3.0, 0.0, 0.0], [0.0, 4.0, 0.0], [3.0, 2.0, 0.0],
+                               [0.0, 0.0, 2.0], [3.0, 0.0, 2.0], [0.0, 4.0, 2.0], [3.0, 2.0, 2.0]]
+        self.create3DFiniteElement(node_coordinate_set)
 
-        node_coordinate_set = [[0, 0.0], [3.0, 0.0], [0.0, 4.0], [2.0, 2.0]]
-        self.create2DFiniteElement(node_coordinate_set)
+#         node_coordinate_set = [[0, 0.0], [3.0, 0.0], [0.0, 4.0], [2.0, 2.0]]
+#         self.create2DFiniteElement(node_coordinate_set)
 
         self.createSurfaceGraphic()
         
-        self.ui._zincWidget._scene_viewer.viewAll()
+        self.ui._zincWidget.viewAll()
+        
+        self.ui._zincWidget.setSelectModeAll()
        
 #         # must set _initialized before calling  createSurfaceGraphic()
 #         self._initialized = True
@@ -168,6 +170,8 @@ class PickingDlg(QtGui.QWidget):
 
         mesh.defineElement(-1, element_template)
 
+        finite_element_field.setTypeCoordinate(True) 
+        field_module.defineAllFaces() 
         field_module.endChange()
  
     # createSurfaceGraphic start
